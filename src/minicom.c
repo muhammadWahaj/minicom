@@ -1284,7 +1284,7 @@ int main(int argc, char **argv)
 	  remote_charset = optarg;
 	  break;
     case 'i':
-      line_timestamp = TIMESTAMP_LINE_SIMPLE;
+      line_timestamp = TIMESTAMP_LINE_EXTENDED;
       s = _("Timestamp every line (simple)");
       status_set_display(s, 0);
       break;
