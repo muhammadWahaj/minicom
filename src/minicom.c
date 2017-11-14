@@ -830,6 +830,7 @@ static void helpthem(void)
     "  -C, --capturefile=FILE : start capturing to FILE\n"
     "  -T, --disabletime      : disable display of online time\n"
     "  -R, --remotecharset    : character set of communication partner\n"
+    "  -i, --timestamp        : output time stamp at new line\n"
     "  -v, --version          : output version information and exit\n"
     "  configuration          : configuration file to use\n\n"
     "These options can also be specified in the MINICOM environment variable.\n"),
@@ -1051,6 +1052,7 @@ int main(int argc, char **argv)
     { "baudrate",      required_argument, NULL, 'b' },
     { "device",        required_argument, NULL, 'D' },
     { "remotecharset", required_argument, NULL, 'R' },
+    { "timestamp",     no_argument,       NULL, 'i' },
     { NULL, 0, NULL, 0 }
   };
 
@@ -1152,7 +1154,7 @@ int main(int argc, char **argv)
 
   do {
     /* Process options with getopt */
-    while ((c = getopt_long(argk, args, "v78zhlLsomMHb:wTc:a:t:d:p:C:S:D:R:",
+    while ((c = getopt_long(argk, args, "v78zhlLsomMHb:wTc:a:t:d:p:C:S:D:R:i",
                             long_options, NULL)) != EOF)
       switch(c) {
 	case 'v':
@@ -1281,6 +1283,11 @@ int main(int argc, char **argv)
 	case 'R':
 	  remote_charset = optarg;
 	  break;
+    case 'i':
+      line_timestamp = TIMESTAMP_LINE_SIMPLE;
+      s = _("Timestamp every line (simple)");
+      status_set_display(s, 0);
+      break;
         default:
           usage(env_args, optind, mc);
           break;
